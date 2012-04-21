@@ -1,0 +1,120 @@
+body {
+   margin: 0;
+   padding: 0;
+   height: 100%;
+   font-family: Arial;
+   background: #F0F0F0;
+}
+html {
+   height: 100%;
+}
+#container {
+}
+#tour .step-wrapper {
+   float: left;
+   margin-top: 1px;
+   margin-left: 1px;
+   background: #F5F5F5;
+   color: #BBB;
+   text-shadow: 1px 1px 0 rgba(255,255,255,.8);
+}
+#tour .step {
+   font-size: 3em;
+   padding: .45em .3em .1em .6em;
+   line-height: 1em;
+}
+#tour article {
+   box-shadow: -2px 2px 2px rgba(0,0,0,.08);
+   border: 1px solid #CCC;
+   border-right: 0;
+   background: #FFF;
+   position: absolute;
+   right: 55%;
+   top: 120px;
+   bottom: 3em;
+   left: 3em;
+   display: block;
+   line-height: 1.4em;
+   color: #444;
+}
+#tour article .text {
+   padding: 2em;
+   font-size: .9em;
+}
+#tour article h2 {
+   margin-left: -28px;
+   padding-top: 0;
+   padding-left: 2.4em;
+   margin-top: .3em;
+   font-size: 2.5em;
+   font-weight: normal;
+   border-bottom: 1px solid #777;
+   padding-bottom: .4em;
+   color: #444;
+}
+#tour article #nav {
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   right: 0;
+   list-style-type: none;
+   margin: 0;
+   padding: 2em 2em;
+}
+#tour article #nav a {
+   text-decoration: none;
+   color: #FFF;
+   background: #026873;
+   display: inline-block;
+   padding: 4px 12px;
+   box-shadow: 3px 3px 0 rgba(0,0,0,.2);
+   font-size: .8em;
+   font-weight: bold;
+   text-shadow: 1px 1px 1px rgba(0,0,0,.3);
+}
+#tour article #nav a:hover {
+   background: #037883;
+}
+#tour article #nav a:active {
+   position: relative;
+   top: 2px;
+   right: -2px;
+   background: #012340;
+   box-shadow: 1px 1px 0 rgba(0,0,0,.3);
+}
+#tour article #nav li:first-child {
+   float: right;
+}
+#tour article #nav li:last-child {
+   float: left;
+}
+#tour aside {
+   border-left: 5px solid #222;
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   right: 0;
+   left: 45%;
+   background: #404040;
+   color: #FFF;
+   display: block;
+   padding: 0;
+   overflow: hidden;
+   overflow-y: scroll;
+}
+#tour .CodeMirror-scroll {
+   height: auto;
+   overflow: visible;
+   padding-top: .5em;
+}
+#steps {
+   display: none;
+}
+.clearfix {
+   clear: both;
+}
+code {
+   background: #F0F0F0;
+   color: #026873;
+   padding: 2px;
+}

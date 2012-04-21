@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebRocket Tour</title>
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="codemirror/theme/lesser-dark.css">
+    <link rel="stylesheet" type="text/css" href="style.css" />
+  </head>
+  <body>
+    <div id="container">
+      <section id="tour" role="main">
+        <article>
+          <div class="step-wrapper">
+            <div class="step">
+              <!-- step id goes here -->
+            </div>
+          </div>
+          <div class="text">
+            <!-- text goes here -->
+          </div>
+          <ul id="nav">
+            <li><a href="#" id="next">Next &rsaquo;</a></li>
+            <li><a href="#" id="prev">&lsaquo; Prev</a></li>
+          </ul>
+        </article>
+        <aside id="code">
+
+        </aside>
+      </section>
+
+      <div id="steps">
+        <section>
+          <article data-src="install.html:5">
+            <h2>Installation</h2>
+            <p>
+              This is how easily you install WebRocket script in your application.
+              The script is magically served by the instance of WebRocket server. It
+              initializes and configures WebRocket client instance, and connects
+              to server's specified <strong>vhost</strong>.
+            </p>
+            <p>
+              What is <strong>vhost</strong>? You can consider vhost as standalone,
+              separated namespace within WebRocket cluster. Each registered vhost
+              contains its own <strong>channels</strong> and access control
+              management.
+            </p>
+            <p>
+              What are <strong>channels</strong>? Hold on a second, we will explain
+              you that clearly by example in a while.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article>
+            <h2>Customizing installation</h2>
+            <p>
+              As you can see <strong>vhost</strong> is specified in the path to the javascript
+              library. You can change that <code>/vhost</code> to your own value eg.
+            </p>
+            <pre><code>http://webrocket.io:8080<b>/nu7/yodachat</b>/webrocket.js</code></pre>
+            <p>
+              In this case WebRocket will conneect to <code>/nu7/yodachat</code> vhost.
+              Script will automatically set proper configuration and initialize client
+              instance. The configured instance will be assigned to <strong><code>$wr</code></strong>
+              global variable.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article>
+            <h2>Joining a channel</h2>
+            <p>
+              So, what's the <strong>channel</strong>? Imagine it as a chat room,
+              where everyone can send something, that everyone else will immediately
+              see. That's the simplest explanation how WebRocket channels works.
+            </p>
+            <p>
+              To start working with channel you have to <strong>join it</strong>. To
+              do so you shall use <strong><code>$wr.join()</code></strong> function, just like
+              in the code on your right.
+            </p>
+            <p>
+              Due to security reasons, <strong>you can't join a channel which doesn't
+              exist</strong>. Unlike the similar projects, WebRocket doesn't allow to
+              open channels on the fly. Further, you will find information how to manage
+              channels.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article>
+            <h2>Listening on relay</h2>
+            <p>
+              One more term that WebRocket introduces is <strong>relay</strong>. At a
+              glance it looks just like hipsterish name for <strong>event</strong> with
+              over-complicated way to handle them. In fact there's bigger idea behind
+              it and plenty of reasons why it is clearly isolated. Further reading
+              will explain you everything.
+            </p>
+            <p>
+              For now let's focus only on listening for data. To do so we have to
+              connect to source with channe's <strong><code>relay()</code></strong> method,
+              and then set our listener to <strong><code>received</code></strong> event.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article>
+            <h2>Pushing data to relay</h2>
+            <p>
+              WebRocket brings full, <strong>bi-directional communication</strong>, thus you
+              are able to send any object to the server. Depending on channel and relays nature
+              the message may be passed to your backend app, may be broadcasted directly
+              to all the subscribers or can be forwared to another channel.
+            </p>
+            <p>
+              Let's start from the simples use case - <strong>direct broadcasting</strong>
+              to all the subscribers. Use relay's <strong><code>push()</code></strong>
+              method to write data on relay.
+            </p>
+            <p>
+              Code on your right combines now pushing and receiving data over the relay.
+              In fact, that's all you need in your frontend, now you can modulate behavior
+              of this event through different <strong>backends</strong>.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article>
+            <h2>Backends</h2>
+            <p>
+              What the hell, another weird term? Well, yeah - <strong>backend</strong> (or worker)
+              is a logic which can be implemented in the backend application - this is the killer
+              feature.
+            </p>
+            <p>
+              Take a look at example in <strong>Ruby</strong> on the right. You can implement
+              channel's (or to be more explicit, relay's) backends to handle events. In previous
+              steps we've been listening for <code>greeting</code> events - now, we can make
+              our backend to operate it first. To do so we have to define a backend handler method
+              called the same as our relay, and bind it to the channel. As you can see we can
+              <strong>use regexp to determine the channel</strong>.
+            </p>
+            <p>
+              With this simple trick, we transformed our frontend app into sort of RPC
+              caller, with <strong>real-time, bi-directional communication</strong> with your
+              backend app.
+            </p>
+          </article>
+        </section>
+      </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="codemirror/lib/codemirror.js"></script>
+    <script src="codemirror/mode/javascript/javascript.js"></script>
+    <script src="codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="tour.js"></script>
+  </body>
+</html>
