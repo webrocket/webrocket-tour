@@ -125,6 +125,9 @@
         
         __hideIf(this.currentStep == this.steps.length - 1, this.tour.find('#next'));
         __hideIf(this.currentStep == 0, this.tour.find('#prev'));
+
+        this.tour.find('#next').attr('href', '#' + (id + 2));
+        this.tour.find('#prev').attr('href', '#' + (id));
     };
 
     exports.Steps = Steps;
@@ -132,15 +135,6 @@
 
 $(document).ready(function() {
     var steps  = new Steps($('#steps'), $('#tour'));
-
-    $('#next').live('click', function() {
-        steps.next();
-        return false;
-    });
-    $('#prev').live('click', function() {
-        steps.prev();
-        return false;
-    });
     
     if ('onhashchange' in window) {
         window.onhashchange = function() {
