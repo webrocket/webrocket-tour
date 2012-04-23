@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebRocket Tour</title>
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="codemirror/theme/monokai.css">
+    <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic,700italic" type="text/css">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <div id="container">
+      <section id="tour" role="main">
+        <article>
+          <div class="step-wrapper">
+            <div class="step">
+              <!-- step id goes here -->
+            </div>
+          </div>
+          <div class="text">
+            <!-- text goes here -->
+          </div>
+          <ul id="nav">
+            <li><a href="#" id="next">Next &rsaquo;</a></li>
+            <li><a href="#" id="prev">&lsaquo; Prev</a></li>
+          </ul>
+        </article>
+        <aside id="code">
+
+        </aside>
+      </section>
+
+      <div id="steps">
+        <section>
+          <article data-src="install:4">
+            <h2>Installation</h2>
+            <p>
+              This is how easily you install WebRocket script in your application.
+              The script is magically served by the instance of WebRocket server. It
+              initializes and configures WebRocket client instance, and connects
+              to server's specified <strong>vhost</strong>.
+            </p>
+            <p>
+              What is <strong>vhost</strong>? You can consider vhost as standalone,
+              separated namespace within WebRocket cluster. Each registered vhost
+              contains its own <strong>channels</strong> and access control
+              management.
+            </p>
+            <p>
+              What are <strong>channels</strong>? Hold on a second, we will explain
+              you that clearly by example in a while.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article data-src="install2:4">
+            <h2>Customizing installation</h2>
+            <p>
+              As you can see <strong>vhost</strong> is specified in the path to the javascript
+              library. You can change that <code>/vhost</code> to your own value eg.
+            </p>
+            <pre><code>http://webrocket.io:8080<b>/hello</b>/webrocket.js</code></pre>
+            <p>
+              In this case WebRocket will conneect to <code>/hello</code> vhost.
+              Script will automatically set proper configuration and initialize client
+              instance. The configured instance will be assigned to <strong><code>$wr</code></strong>
+              global variable.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article data-src="joining:9-12">
+            <h2>Joining a channel</h2>
+            <p>
+              So, what's the <strong>channel</strong>? Imagine it as a chat room,
+              where everyone can send something, that everyone else will immediately
+              see. That's the simplest explanation how WebRocket channels works.
+            </p>
+            <p>
+              To start working with channel you have to <strong>join it</strong>. To
+              do so you shall use <strong><code>$wr.join()</code></strong> function, just like
+              in the code on your right. You can also bind to events like <code>subscribed</code>
+              and <code>unsubscribed</code>, to perform appropriate actions in time.
+            </p>
+            <p>
+              Due to security reasons, <strong>you can't join a channel which doesn't
+              exist</strong>. Unlike the similar projects, WebRocket doesn't allow to
+              open channels on the fly. Further, you will find information how to manage
+              channels.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article data-src="listening:11-14">
+            <h2>Listening on sources</h2>
+            <p>
+              One more term that WebRocket introduces is <strong>source</strong>. At a
+              glance it looks just like hipsterish name for <strong>event</strong> with
+              over-complicated way to handle them. In fact there's bigger idea behind
+              it and plenty of reasons why it is clearly isolated. Further reading
+              will explain you everything.
+            </p>
+            <p>
+              For now let's focus only on listening for data. To do so we have to
+              connect to source with channe's <strong><code>source()</code></strong> method,
+              and then set our listener to <strong><code>received</code></strong> event.
+              Received data will appear as simple <code>Object</code>.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article data-src="pushing:20">
+            <h2>Pushing data to source</h2>
+            <p>
+              WebRocket brings full, <strong>bi-directional communication</strong>, thus you
+              are able to send any object to the server. Depending on channel and sources nature
+              the message may be passed to your backend app, may be broadcasted directly
+              to all the subscribers or can be forwared to another channel.
+            </p>
+            <p>
+              Let's start from the simples use case - <strong>direct broadcasting</strong>
+              to all the subscribers. Use source's <strong><code>push()</code></strong>
+              method to write data to source.
+            </p>
+            <p>
+              We've added simple button to code on the right. By clicking it, greeting message
+              will be sent to <code>greetings</code> source.
+            </p>
+          </article>
+        </section>
+        
+        <section>
+          <article data-src="tyingup:20-30">
+            <h2>Tying everything up!</h2>
+            <p>
+              Let's tie pushing and receiving up together now. We added two things here: a
+              text field where you can put your name and list of greetings sent by the others.
+              If you click our <code>Say hello</code> button, then greetings with your name will
+              fly over the WebRocket and display for <strong>all the connected users</strong>,
+              including you.
+            </p>
+            <p>
+              What you can see on the right is mostly all you want to use in your frontend
+              code. But that's only small piece of WebRocket's power. Let's move forward
+              to see how you can modulate behaviour of the sources by using
+              <strong>custom backends</strong>.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article data-src="backend:5-6">
+            <h2>Backends</h2>
+            <p>
+              What the hell, another weird term? Well, yeah - <strong>backends</strong> (or we use to
+              call them <strong>kosmonauts</strong>) are handlers which can be implemented in the
+              backend application and hook into behaviour of sources.
+            </p>
+            <p>
+              Take a look at this simple example in Ruby. We can simply add storage to the source -
+              data pushed to the <code>greetings</code> source when coming through this hook and will
+              be stored in Redis list and passed forward to all the subscribers. Note, that passing
+              message through is optional.
+            </p>
+            <p>
+              With this simple trick, we can transform our frontend app into sort of RPC
+              caller, supporting <strong>real-time, bi-directional communication</strong> with your
+              backend app.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article data-src="backend2:10-13">
+            <h2>Binding backends</h2>
+            <p>
+              To let the magic happen you have to build an application in a very similar way as Rack
+              apps are made. <strong><code>Kosmonaut::Application.build</code></strong> class method
+              takes as an argument URL of the backend feed for specified vhost, in this case it's:
+            </p>
+            <pre><code>http://wr:token@webrocket.io:8080/vhost</code></pre>
+            <p>
+              Where <code>wr</code> username is constant, and <code>token</code> is configured for
+              for each vhost in the system.
+            </p>
+            <p>
+              Now you can see that <strong><code>Kosmonaut::Application#bind</code></strong> method
+              is used to connect our backend with the source. The source name has format
+              <code>channel/source</code> and can be declared as <code>Regexp</code> too. 
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article data-src="backend3:10-12">
+            <h2>Tricks for binding backends</h2>
+            <p>
+              There can be few tricks applied to the bindings and two of them are worth
+              to mention. First, as you probably noticed - instead of explicit using
+              <strong><code>msg.pass!</code></strong> binding switch <strong><code>:pass => true</code></strong>
+              can be used.
+            </p>
+            <p>
+              Second, bindings for sources within the same channel can be grouped,
+              just like on the example, using <strong><code>Kosmonaut::Application#within</code></strong>
+              method.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article data-src="backend4:6-7">
+            <h2>Forwarding from backend</h2>
+            <p>
+              Message handled by the backend can be easily <strong>forwarded to another channel</strong>,
+              even with transformed name.
+            </p>
+            <p>
+              Like on example, <strong><code>Kosmonaut::Message#forward!</code></strong>
+              method shall be used to do so. Moreover, even data attributes can be changed. Thanks to
+              this we can forward our message to Kronos plane channel and even translated to klingon! ;)
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article data-src="backend5:6">
+            <h2>Replying to messages</h2>
+            <p>
+              Backend allows also for easy <strong>replying to incoming messages</strong>.
+              You can compose brand new message and send it in reply to handled one,
+              to whatever source you want.
+            </p>
+            <p>
+              In the example on your right, <strong><code>Kosmonaut::Message#reply</code></strong>
+              method is used to send thank you message on <code>thanks</code> source,
+              <strong>on the same channel the message came from</strong>. As you can see,
+              <code>Hash</code> data can be passed through there. Note, that reply will be
+              send <strong>directly</strong> to the client who the original message, not
+              to everyone.
+            </p>
+            <p>
+              It is possible to send everyone on the channel, to do so you shall use
+              <strong><code>Kosmonaut::Message#reply_all</code></strong> method instead.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article data-src="private:9">
+            <h2>Private channels</h2>
+            <p>
+              Let's leave backends now and dig deeper in frontend features. This system
+              wouldn't have any sense without <strong>private</strong>, <strong>authorizable</strong>
+              channels. Private channels are distinguished by name - if your channel name is
+              prefixed with <strong><code>priv-</code></strong> then it's treated as a private
+              one.
+            </p>
+            <p>
+              To push data to the private channel you <strong>have to be authenticated</strong>.
+              Detailed information on authentication mechanism is described in the next step.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article data-src="auth:8-12">
+            <h2>Authentication</h2>
+            <p>
+              To get push access to private channel you have to implement an authentication resource.
+              Private channels are authenticated with <strong>Single Access Token (SAT)</strong>
+              provided by default resource from your app: <code>GET /webrocket/auth.json</code>.
+              This is how to implement such one with Sinatra in Ruby. 
+            </p>
+            <p>
+              But first thing, what's the 
+              <strong><code>Kosmonaut::Client</code></strong> class? It's a backend client which can
+              manage channels (create or delete them on the fly), push data to sources or
+              request single access tokens - which interests us the most at the moment.
+            </p>
+            <p>
+              The <strong><code>single_access_token</code></strong> method
+              requests SAT for specified <strong>user</strong> and <strong>permissions</strong>.
+              User ID can be <strong>any unique identifier from your system</strong>,
+              and permission is simple regular expression - in this case we give user push
+              access to all the channels prefixed with <code>priv-earth</code> or one called exactly
+              <code>priv-qunos</code>.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article data-src="opening-channel:10">
+            <h2>Managing channels</h2>
+            <p>
+              If we're in the backend, take a look how to <strong>manage channels on the fly</strong>.
+              We gonna use <strong><code>Kosmonaut::Client#open_channel</code></strong> method to create
+              a channel with specified name. Channel name must contain letters, digits or dashes only.
+              If channel we want to open already exists, then nothing happens. 
+            </p>
+            <p>
+              Likewise, <strong><code>Kosmonaut::Client#close_channel</code></strong> can be used to
+              close a channel. If channel we want to close doesn't exist, then nothing happens.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article data-src="backend-pushing:10">
+            <h2>Pushing from backend</h2>
+            <p>
+              Last thing you can do with <strong><code>Kosmonaut::Client</code></strong> is
+              <strong>pushing data</strong> to sources. Let's say that we want to be able to
+              send greetings over the public API, via HTTP. We will use <strong><code>Kosmonaut::Client#push</code></strong>
+              method to send data over the channel, to specified source.
+            </p>
+            <p>
+              In this example, the <code>earth/greetings</code> param means that we're sending
+              data over the <code>earth</code> channel, to <code>greetings</code> source. Of course
+              we're sending the data as <code>Hash</code>.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article data-src="presence:9-11">
+            <h2>Presence tracking</h2>
+            <p>
+              Last feature which must be mentioned here is <strong>presence tracking</strong>.
+              To get information who is online, special kind of channel must be used - presence channel,
+              which name starts with <strong><code>presence-</code></strong> prefix.
+            </p>
+            <p>
+              Like you see on the right, you can attach additional information about the user, like
+              his name in this case. This information will be send to all the subscribers in presence
+              tracking events.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article data-src="presence-events:17-26">
+            <h2>Presence tracking events</h2>
+            <p>
+              There are two kinds of presence tracking events available:
+              <strong><code>online</strong></code> and <strong><code>offline</strong></code> events.
+              It's usage seems to be obvious. When someone joins the channel then
+              <code>online</code> is triggered, and <code>offline</code> is triggered when
+              he leaves. Both events has user information attached, including the <strong><code>uid</code></strong>
+              specified during the authentication.
+            </p>
+            <p>
+              In the example we will display list of user who are currently viewing
+              the page. To simplify the code we assume that someone, somewhere logged in
+              and provided its name, and we're only taking it from <code>@current_user.name</code>
+              variable available in our template.
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article data-src="deferred-join:28-30">
+            <h2>Deferred joining</h2>
+            <p>
+              Very last trick you should know is <strong>deferred joining the channels</strong>. You
+              can dynamically setup a channel together with its callbacks, and just join it later,
+              in appropriate moment. That will reduce amount of nested callbacks in your code.
+            </p>
+            <p>
+              The only thing you have to do is to use <strong><code>$wr.channel()</code></strong> instead
+              of <strong><code>$wr.join()</code></strong> function. You can set everything up,
+              and join the channel when you're ready, like on the example, using channels
+              <strong><code>$join()</code></strong> function. 
+            </p>
+          </article>
+        </section>
+
+        <section>
+          <article data-src="asciiart">
+            <h2>Congratulations!</h2>
+            <p>
+              Yay! You just finished our tutorial! We have a big hope that you liked
+              it and you will use WebRocket to build <strong>kickass real-time apps</strong>.
+            </p>
+            <p>
+              What's next? Download <a href="http://webrocket.io/download/">latest version of
+              the server</a> and read the <a href="http://webrocket.io/docs/">detailed documentation</a>.
+              You may also be interested in being a beta user of our <a href="http://cloud.webrocket.io">hosted platform</a>
+              - thanks to you we can launch it faster and with more love. 
+            </p>
+          </article>
+        </section>
+      </div>
+
+      <div id="sources">
+<textarea id="src-install" data-mode="text/html">
+<html>
+  <head>
+    <title>Hello Universe!</title>
+    <script src="http://webrocket.io:8080/vhost/webrocket.js"></script>
+  </head>
+  <body>
+
+  </body>
+</html></textarea>
+
+<textarea id="src-install2" data-mode="text/html">
+<html>
+  <head>
+    <title>Hello Universe!</title>
+    <script src="http://webrocket.io:8080/hello/webrocket.js"></script>
+  </head>
+  <body>
+
+  </body>
+</html></textarea>
+
+<textarea id="src-joining" data-mode="text/html">
+<html>
+  <head>
+    <title>Hello Universe!</title>
+    <script src="http://webrocket.io:8080/hello/webrocket.js"></script>
+  </head>
+  <body>
+    <script>
+      
+      var earthChan = $wr.join('earth');
+      earthChan.on('subscribed', function() {
+        // do something when subscribed...
+      }
+
+    </script>
+  </body>
+</html></textarea>
+
+<textarea id="src-listening" data-mode="text/html">
+<html>
+  <head>
+    <title>Hello Universe!</title>
+    <script src="http://webrocket.io:8080/hello/webrocket.js"></script>
+  </head>
+  <body>
+    <script>
+      
+      var earthChan = $wr.join('earth');
+
+      var greetingsSrc = earthChan.source('greetings');
+      greetingsSrc.on('received', function(data) {
+        // do something with the data...
+      });
+      
+    </script>
+  </body>
+</html></textarea>
+
+<textarea id="src-pushing" data-mode="text/html">
+<html>
+  <head>
+    <title>Hello Universe!</title>
+    <script src="http://webrocket.io:8080/hello/webrocket.js"></script>
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  </head>
+  <body>
+    <button id="say_hello">Say hello!</button>
+      
+    <script>
+      
+      var earthChan = $wr.join('earth');
+
+      var greetingsSrc = earthChan.source('greetings');
+      greetingsSrc.on('received', function(data) {
+        // do something with the data...
+      });
+
+      $('#say_hello').live('click', function() {
+        greetingsSrc.push({text: 'Hello from earth!'});
+        return false;
+      });
+      
+    </script>
+  </body>
+</html></textarea>
+
+<textarea id="src-tyingup" data-mode="text/html">
+<html>
+  <head>
+    <title>Hello Universe!</title>
+    <script src="http://webrocket.io:8080/hello/webrocket.js"></script>
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  </head>
+  <body>
+    <form>
+      <input type="text" name="name" id="name" value="" />
+      <button id="say_hello">Say hello!</button>
+    </form>
+
+    <ul id="greetings">
+    </ul>
+    
+    <script>
+      
+      var earthChan = $wr.join('earth');
+
+      var greetingsSrc = earthChan.source('greetings');
+      greetingsSrc.on('received', function(data) {
+        var newItem = $('<li></li>');
+        newItem.text('Hello from' + data.name);
+        $('#greetings').append(newItem);
+      });
+
+      $('#say_hello').live('click', function() {
+        greetingsSrc.push({name: $('#name').val()});
+        return false;
+      });
+      
+    </script>
+  </body>
+</html></textarea>
+
+<textarea id="src-backend" data-mode="ruby">
+require 'kosmonaut'
+
+class GreetingsBackend
+  def self.call(msg)
+    $redis.lpush(:greetings, msg.to_json)
+    msg.pass!
+  end
+end
+</textarea>
+
+<textarea id="src-backend2" data-mode="ruby">
+require 'kosmonaut'
+
+class GreetingsBackend
+  def self.call(msg)
+    $redis.lpush(:greetings, msg.to_json)
+    msg.pass!
+  end
+end
+
+Kosmonaut::Application.build 'http://wr:token@webrocket.io:8080/vhost' do
+  bind 'earth/greeting', GreetingsBackend
+  run
+end
+</textarea>
+
+<textarea id="src-backend3" data-mode="ruby">
+require 'kosmonaut'
+
+class GreetingsBackend
+  def self.call(msg)
+    $redis.lpush(:greetings, msg.to_json)
+  end
+end
+
+Kosmonaut::Application.build 'http://wr:token@webrocket.io:8080/vhost' do
+  within 'earth' do
+    bind 'greeting', GreetingsBackend, :pass => true
+  end
+
+  run
+end
+</textarea>
+
+<textarea id="src-backend4" data-mode="ruby">
+require 'kosmonaut'
+
+class GreetingsBackend
+  def self.call(msg)
+    $redis.lpush(:greetings, msg.to_json)
+    msg[:message] = msg[:message].to_klingon
+    msg.forward!('qunos', :as => 'nunqneh')
+  end
+end
+
+# *snip*
+</textarea>
+
+<textarea id="src-backend5" data-mode="ruby">
+require 'kosmonaut'
+
+class GreetingsBackend
+  def self.call(msg)
+    $redis.lpush(:greetings, msg.to_json)
+    msg.reply('thanks', { message: 'Thanks dude!' })
+  end
+end
+
+# *snip*
+</textarea>
+
+<textarea id="src-private" data-mode="text/html">
+<html>
+  <head>
+    <title>Hello Universe!</title>
+    <script src="http://webrocket.io:8080/hello/webrocket.js"></script>
+  </head>
+  <body>
+    <script>
+      
+      var earthChan = $wr.join('priv-earth');
+
+    </script>
+  </body>
+</html></textarea>
+
+<textarea id="src-auth" data-mode="ruby">
+require 'sinatra'
+require 'kosmonaut'
+
+$kosmonaut = Kosmonaut::Client.new('http://wr:token@webrocket.io:8080/hello')
+
+# *snip*
+
+get '/webrocket/auth.json' do
+  content_type 'application/json'
+  @token = $kosmonaut.sat(@current_user.id, "priv-earth-.*|priv-qunos")
+  return { token: @token }.to_json
+end
+</textarea>
+
+<textarea id="src-opening-channel" data-mode="ruby">
+require 'sinatra'
+require 'kosmonaut'
+
+$kosmonaut = Kosmonaut::Client.new('http://wr:token@webrocket.io:8080/hello')
+
+# *snip*
+
+post '/planets' do
+  @name = params[:name]
+  $kosmonaut.open_channel(@name)
+  redirect "/planets/#{@name}"
+end
+</textarea>
+
+<textarea id="src-backend-pushing" data-mode="ruby">
+require 'sinatra'
+require 'kosmonaut'
+
+$kosmonaut = Kosmonaut::Client.new('http://wr:token@webrocket.io:8080/hello')
+
+# *snip*
+
+post '/greetings' do
+  @greeting = Greeting.create(params[:greeting])
+  $kosmonaut.push('earth/greetings', @greeting.to_hash)
+  redirect '/'
+end
+</textarea>
+
+<textarea id="src-presence" data-mode="text/html">
+<html>
+  <head>
+    <title>Hello Universe!</title>
+    <script src="http://webrocket.io:8080/hello/webrocket.js"></script>
+  </head>
+  <body>
+    <script>
+      
+      var earthChan = $wr.join('presence-earth', {
+        name: "Marty MacFly",
+      });
+      
+    </script>
+  </body>
+</html></textarea>
+
+<textarea id="src-presence-events" data-mode="text/html">
+<html>
+  <head>
+    <title>Hello Universe!</title>
+    <script src="http://webrocket.io:8080/hello/webrocket.js"></script>
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  </head>
+  <body>
+    <h1>Users online</h1>
+    <ul id="users_online">
+    </ul>
+    
+    <script>
+      
+      var earthChan = $wr.join('presence-earth', {
+        name: '<%= @current_user.name %>';
+      });
+      earthChan.on('online', function(info) {
+        var userLine = $('<li></li>');
+        userLine.attr('id', 'user_' + info.uid);
+        userLine.text(info.name);
+        $('#users_online').append(userLine);
+      });
+      earthChan.on('offline', function(info) {
+        var userLine = $('#users_online #user_' + info.uid);
+        userLine.remove();
+      });
+      
+    </script>
+  </body>
+</html></textarea>
+
+<textarea id="src-deferred-join" data-mode="text/html">
+<html>
+  <head>
+    <title>Hello Universe!</title>
+    <script src="http://webrocket.io:8080/hello/webrocket.js"></script>
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+  </head>
+  <body>
+    <h1>Users online</h1>
+    <ul id="users_online">
+    </ul>
+    
+    <script>
+      
+      var earthChan = $wr.channel('presence-earth');
+
+      earthChan.on('online', function(info) {
+        var userLine = $('<li></li>');
+        userLine.attr('id', 'user_' + info.uid);
+        userLine.text(info.name);
+        $('#users_online').append(userLine);
+      });
+      earthChan.on('offline', function(info) {
+        var userLine = $('#users_online #user_' + info.uid);
+        userLine.remove();
+      });
+
+      $('#join').live('click', function() {
+        earthChan.join({
+          name: '<%= @current_user.name %>';
+        });
+      });
+      
+    </script>
+  </body>
+</html></textarea>
+
+<textarea id="src-asciiart" data-mode="text/plain">
+
+            /\                                                                  
+      ,    /  \      o               .        ___---___                    . 
+          /    \            .              .--\        --.     .     .       
+         /______\                        ./.;_.\     __/~ \.                 
+   .    |        |                      /;  / '-'  __\    . \                
+        |        |    .        .       / ,--'     / .   .;   \        |      
+        |________|                    | .|       /       __   |      -O-     
+        |________|                   |__/    __ |  . ;   \ | . |      |      
+       /|   ||   |\                  |      /  \\_    . ;| \___|             
+      / |   ||   | \    .    o       |      \  .~\\___,--'     |           . 
+     /  |   ||   |  \                 |     | . ; ~~~~\_    __|              
+    /___|:::||:::|___\   |             \    \   .  .  ; \  /_/   .           
+        |::::::::|      -O-        .    \   /         . |  ~/                
+         \::::::/         |    .          ~\ \   .      /  /~          o     
+   o      ||__||       .                   ~--___ ; ___--~                   
+            ||                        .          ---         .              .
+            ''                                                                
+</textarea>
+      </div>
+    </div>
+
+    <script src="http://code.jquery.com/jquery-1.7.2.min.js"></script>
+    <script src="codemirror/lib/codemirror.js"></script>
+    <script src="codemirror/mode/xml/xml.js"></script>
+    <script src="codemirror/mode/css/css.js"></script>
+    <script src="codemirror/mode/javascript/javascript.js"></script>
+    <script src="codemirror/mode/ruby/ruby.js"></script>
+    <script src="codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="tour.js"></script>
+  </body>
+</html>

@@ -1,0 +1,136 @@
+body {
+   margin: 0;
+   padding: 0;
+   height: 100%;
+   font-family: Arial;
+   background: #F0F0F0;
+   overflow: hidden;
+}
+a {
+   color: #026873;
+}
+a:hover {
+   text-decoration: none;
+   color: #012340;
+}
+html {
+   height: 100%;
+}
+#container {
+}
+#tour .step-wrapper {
+   float: left;
+   margin-top: 1px;
+   margin-left: 1px;
+   background: #F5F5F5;
+   height: 74px;
+   width: 70px;
+   color: #BBB;
+   text-shadow: 1px 1px 0 rgba(255,255,255,.8);
+}
+#tour .step {
+   font-size: 2em;
+   line-height: 1em;
+   text-align: right;
+   padding: 35px 10px 0 0; 
+}
+#tour article {
+   box-shadow: -2px 2px 2px rgba(0,0,0,.08);
+   border: 1px solid #CCC;
+   border-right: 0;
+   background: #FFF;
+   position: absolute;
+   right: 50%;
+   top: 120px;
+   bottom: 3em;
+   left: 3em;
+   display: block;
+   line-height: 1.4em;
+   color: #444;
+}
+#tour article .text {
+   padding: 2em;
+   font-size: .9em;
+}
+#tour article h2 {
+   margin-left: -28px;
+   padding-top: 0;
+   padding-left: 2.4em;
+   margin-top: .3em;
+   font-size: 2.5em;
+   font-weight: normal;
+   border-bottom: 1px solid #777;
+   padding-bottom: .4em;
+   color: #444;
+}
+#tour article #nav {
+   position: absolute;
+   bottom: 1px;
+   left: 1px;
+   right: 1px;
+   list-style-type: none;
+   margin: 0;
+   background: #F5F5F5;
+   padding: .6em 1.8em .8em 1.8em;
+}
+#tour article #nav a {
+   text-decoration: none;
+   color: #FFF;
+   background: #026873;
+   display: inline-block;
+   padding: 4px 12px;
+   box-shadow: 3px 3px 0 rgba(0,0,0,.2);
+   font-size: .8em;
+   font-weight: bold;
+   text-shadow: 1px 1px 1px rgba(0,0,0,.3);
+}
+#tour article #nav a:hover {
+   background: #037883;
+}
+#tour article #nav a:active {
+   position: relative;
+   top: 2px;
+   right: -2px;
+   background: #012340;
+   box-shadow: 1px 1px 0 rgba(0,0,0,.3);
+}
+#tour article #nav li:first-child {
+   float: right;
+}
+#tour article #nav li:last-child {
+   float: left;
+}
+#tour .CodeMirror-scroll {
+   border-left: 8px solid #333;
+   position: absolute;
+   top: 0;
+   bottom: 0;
+   right: 0;
+   left: 50%;
+   background: #272822;
+   display: block;
+   padding: 0;
+   overflow: hidden;
+   overflow-y: scroll;
+   font-size: 16px;
+}
+#tour aside pre {
+   line-height: 1.1em;
+   font-family: 'Ubuntu Mono', 'Bitstream Vera Sans Mono', 'DejaVu Sans Mono', Monospace, 'Courier New', Courier;
+}
+#tour .CodeMirror-scroll {
+   height: auto;
+   overflow: scroll
+   overflow-x: hidden;
+}
+#steps, #sources {
+   display: none;
+}
+.clearfix {
+   clear: both;
+}
+code {
+   background: #F0F0F0;
+   color: #026873;
+   padding: 2px;
+}
