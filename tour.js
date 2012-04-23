@@ -11,7 +11,7 @@
 
     function __editor() {
         var pane = document.getElementById('code');
-        return CodeMirror(pane, {'theme': 'lesser-dark'});
+        return CodeMirror(pane, {'theme': 'monokai'});
     }
 
     function __hideIf(condition, el) {
@@ -21,28 +21,86 @@
             el.show();
     }
 
-    function __loadSource(editor, source) {
+    function __parseSource(source, fn) {
+        if (!source)
+            return fn(undefined);
         
+        var parts = source.split(':');
+        var file = parts[0], lines = parts[1], range = parts[2];
+
+        if (!file)
+            return fn(undefined);
+        if (!!lines) {
+            lines = lines.split('-');
+            if (lines.length == 1) {
+                lines[1] = lines[0];
+            }
+        }
+        if (!!range)
+        {
+            range = range.split('-');
+            if (range.length < 2)
+                range = undefined;
+        }
+
+        fn(file, lines, range);
+    }
+    
+    function __loadSource(editor, source) {
+        var file, lines, range;
+        __parseSource(source, function(f, l, r) {
+            file = f; lines = l; range = r;
+        });
+
+        var source = $('#src-' + file);
+        if (!source)
+            return;
+
+        editor.setValue(source.text());
+        editor.setOption('mode', source.data('mode'));
+        
+        if (!!lines) {
+            var start = {}, end = {};
+            start.line = parseInt(lines[0]) - 1;
+
+            if (!!range) {
+                end.line = parseInt(lines[1]) - 1;
+                start.ch = parseInt(range[0]);
+                end.ch   = parseInt(range[1]);
+            } else {
+                start.ch = 0;
+                end.line = parseInt(lines[1]);
+                end.ch   = 0;
+            }
+
+            editor.setSelection(start, end);
+        }
     }
     
     var editor = __editor();
+    $(editor.getScrollerElement()).css('height', $('#tour .code').height());
     
     function Steps(root, tour) {
         this.tour        = tour
         this.steps       = root.find('> section');
+
+        this.reload();
+    };
+
+    Steps.prototype.load = function() {
+        var step = this.steps[this.currentStep]
+        if (!!step)
+            this.applyStep($(step), this.currentStep);
+    };
+
+    Steps.prototype.reload = function() {
         this.currentStep = __currentStep();
 
         if (this.currentStep < 0 || this.currentStep > this.steps.length)
             this.currentStep = 0;
 
         this.load();
-    }
-
-    Steps.prototype.load = function() {
-        var step = this.steps[this.currentStep]
-        if (!!step)
-            this.applyStep($(step), this.currentStep);
-    }
+    };
 
     Steps.prototype.next = function() {
         var step = this.steps[this.currentStep + 1];
@@ -83,15 +141,10 @@ $(document).ready(function() {
         steps.prev();
         return false;
     });
-
-    $(document).keydown(function(e){
-        if (e.keyCode == 37 || e.keyCode == 40) {
-            steps.prev();
-            return false;
-        }
-        if (e.keyCode == 39 || e.keyCode == 38) {
-            steps.next();
-            return false;
-        }
-    });
+    
+    if ('onhashchange' in window) {
+        window.onhashchange = function() {
+            steps.reload();
+        };
+    }
 });
