@@ -36,8 +36,7 @@
                 lines[1] = lines[0];
             }
         }
-        if (!!range)
-        {
+        if (!!range) {
             range = range.split('-');
             if (range.length < 2)
                 range = undefined;
@@ -81,8 +80,8 @@
     $(editor.getScrollerElement()).css('height', $('#tour .code').height());
     
     function Steps(root, tour) {
-        this.tour        = tour
-        this.steps       = root.find('> section');
+        this.tour  = tour
+        this.steps = root.find('> section');
 
         this.reload();
     };
