@@ -99,6 +99,7 @@
         if (this.currentStep < 0 || this.currentStep > this.steps.length)
             this.currentStep = 0;
 
+        this.tour.find('.step .total').html(this.steps.length);
         this.load();
     };
 
@@ -118,7 +119,7 @@
         var article = step.find('> article')
 
         this.tour.find('.text').html(article.html());
-        this.tour.find('.step').html(this.currentStep + 1);
+        this.tour.find('.step .current').html(this.currentStep + 1);
         
         __loadSource(editor, article.data('src'));
         __route(id);

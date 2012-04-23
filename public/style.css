@@ -19,20 +19,20 @@ html {
 #container {
 }
 #tour .step-wrapper {
-   float: left;
+   float: right;
    margin-top: 1px;
    margin-left: 1px;
-   background: #F5F5F5;
    height: 74px;
-   width: 70px;
    color: #BBB;
-   text-shadow: 1px 1px 0 rgba(255,255,255,.8);
 }
 #tour .step {
-   font-size: 2em;
-   line-height: 1em;
+   font-size: 1em;
    text-align: right;
-   padding: 35px 10px 0 0; 
+   padding: 37px 28px 0 0;
+}
+#tour .step .current {
+   font-size: 2.5em;
+   color: #026873;
 }
 #tour article {
    box-shadow: -2px 2px 2px rgba(0,0,0,.08);
@@ -55,7 +55,7 @@ html {
 #tour article h2 {
    margin-left: -28px;
    padding-top: 0;
-   padding-left: 2.4em;
+   padding-left: 28px;
    margin-top: .3em;
    font-size: 2.5em;
    font-weight: normal;
