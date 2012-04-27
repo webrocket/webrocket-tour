@@ -1,10 +1,10 @@
 .cm-s-cobalt { background: #002240; color: white; }
-.cm-s-cobalt div.CodeMirror-selected { background: #b36539 !important; }
+.cm-s-cobalt div.CodeMirror-selected { background: rgba(255,255,255,.1) !important; }
 .cm-s-cobalt .CodeMirror-gutter { background: #002240; border-right: 1px solid #aaa; }
 .cm-s-cobalt .CodeMirror-gutter-text { color: #d0d0d0; }
 .cm-s-cobalt .CodeMirror-cursor { border-left: 1px solid white !important; }
 
-.cm-s-cobalt span.cm-comment { color: #08f; }
+.cm-s-cobalt span.cm-comment { color: #777; }
 .cm-s-cobalt span.cm-atom { color: #845dc4; }
 .cm-s-cobalt span.cm-number, .cm-s-cobalt span.cm-attribute { color: #ff80e1; }
 .cm-s-cobalt span.cm-keyword { color: #ffee80; }

@@ -11,7 +11,7 @@
 
     function __editor() {
         var pane = document.getElementById('code');
-        return CodeMirror(pane, {'theme': 'monokai'});
+        return CodeMirror(pane, {'theme': 'cobalt'});
     }
 
     function __hideIf(condition, el) {

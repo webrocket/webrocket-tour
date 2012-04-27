@@ -3,20 +3,57 @@ body {
    padding: 0;
    height: 100%;
    font-family: Arial;
-   background: #F0F0F0;
+   background: #72eee3;
    overflow: hidden;
 }
 a {
-   color: #026873;
+   color: #027378;
 }
 a:hover {
    text-decoration: none;
-   color: #012340;
+   color: #000;
 }
 html {
    height: 100%;
 }
 #container {
+}
+#header {
+   display: block;
+}
+#header #logo {
+   margin: 0;
+   padding: 0;
+   background-image: url(../img/rocket.png);
+   background-position: 310px center;
+   background-repeat: no-repeat;
+}
+#header #logo a {
+   width: 185px;
+   height: 120px;
+   margin-left: 1em;
+   color: #FFF;
+   display: inline-block;
+   font-family: Oyster;
+   text-transform: uppercase;
+   text-decoration: none;
+   font-size: 48px;
+   font-weight: normal;
+   background-image: url(../img/webrocket-logo.png);
+   background-position: left center;
+   background-repeat: no-repeat;
+   background-size: 185px 80px;
+   text-indent: -9999px;
+}
+#header #logo .section {
+   font-size: 48px;
+   color: #027378;
+   font-family: Oyster;
+   text-transform: uppercase;
+   font-weight: normal;
+   display: inline-block;
+   padding-top: 28px;
+   position: absolute;
 }
 #tour .step-wrapper {
    float: right;
@@ -32,11 +69,11 @@ html {
 }
 #tour .step .current {
    font-size: 2.5em;
-   color: #026873;
+   color: #027378;
 }
 #tour article {
    box-shadow: -2px 2px 2px rgba(0,0,0,.08);
-   border: 1px solid #CCC;
+   border: 1px solid #52beb3;
    border-right: 0;
    background: #FFF;
    position: absolute;
@@ -70,13 +107,13 @@ html {
    right: 1px;
    list-style-type: none;
    margin: 0;
-   background: #F5F5F5;
+   background: #e2fff3;
    padding: .6em 1.8em .8em 1.8em;
 }
 #tour article #nav a {
    text-decoration: none;
-   color: #FFF;
-   background: #026873;
+   color: #EEE;
+   background: #444;
    display: inline-block;
    padding: 4px 12px;
    box-shadow: 3px 3px 0 rgba(0,0,0,.2);
@@ -85,13 +122,16 @@ html {
    text-shadow: 1px 1px 1px rgba(0,0,0,.3);
 }
 #tour article #nav a:hover {
-   background: #037883;
+   color: #FFF;
+   background: #222;
 }
 #tour article #nav a:active {
+   text-shadow: -1px -1px 1px rgba(255,255,255,.1);
    position: relative;
    top: 2px;
    right: -2px;
-   background: #012340;
+   background: #000;
+   color: #888;
    box-shadow: 1px 1px 0 rgba(0,0,0,.3);
 }
 #tour article #nav li:first-child {
@@ -101,7 +141,7 @@ html {
    float: left;
 }
 #tour .CodeMirror-scroll {
-   border-left: 8px solid #333;
+   border-left: 8px solid rgba(0,0,0,.2);
    position: absolute;
    top: 0;
    bottom: 0;
@@ -130,7 +170,7 @@ html {
    clear: both;
 }
 code {
-   background: #F0F0F0;
-   color: #026873;
+   background: #f2fffc;
+   color: #027378;
    padding: 2px;
 }
