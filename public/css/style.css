@@ -24,8 +24,8 @@ html {
 #header #logo {
    margin: 0;
    padding: 0;
-   background-image: url(../img/rocket.png);
-   background-position: 310px center;
+   background-image: url(../img/rocket-2.png);
+   background-position: 310px 23px;
    background-repeat: no-repeat;
 }
 #header #logo a {
