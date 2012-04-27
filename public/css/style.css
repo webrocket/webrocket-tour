@@ -61,11 +61,12 @@ html {
    margin-left: 1px;
    height: 74px;
    color: #BBB;
+   font-family: Oyster;
 }
 #tour .step {
-   font-size: 1em;
+   font-size: 1.5em;
    text-align: right;
-   padding: 37px 28px 0 0;
+   padding: 32px 28px 0 0;
 }
 #tour .step .current {
    font-size: 2.5em;
@@ -86,7 +87,7 @@ html {
    color: #444;
 }
 #tour article .text {
-   padding: 2em;
+   padding: 1.5em 2em 2em;
    font-size: .9em;
 }
 #tour article h2 {
@@ -94,11 +95,13 @@ html {
    padding-top: 0;
    padding-left: 28px;
    margin-top: .3em;
-   font-size: 2.5em;
+   font-size: 3.5em;
    font-weight: normal;
    border-bottom: 1px solid #777;
    padding-bottom: .4em;
+   margin-bottom: .6em;
    color: #444;
+   font-family: Oyster;
 }
 #tour article #nav {
    position: absolute;
