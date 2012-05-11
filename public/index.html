@@ -41,20 +41,20 @@
           <article data-src="install:4">
             <h2>Installation</h2>
             <p>
-              This is how easily you install WebRocket script in your application.
-              The script is magically served by the instance of WebRocket server. It
-              initializes and configures WebRocket client instance, and connects
-              to server's specified <strong>vhost</strong>.
+              This is how easily you install the WebRocket script in your application.
+              It is magically served by the instance of WebRocket server. It
+              initializes and configures a WebRocket client instance, and connects
+              to the server's specified <strong>vhost</strong>.
             </p>
             <p>
-              What is <strong>vhost</strong>? You can consider vhost as standalone,
-              separated namespace within WebRocket cluster. Each registered vhost
+              What is a <strong>vhost</strong>? You can consider vhost as a standalone,
+              separated namespace within the WebRocket cluster. Each registered vhost
               contains its own <strong>channels</strong> and access control
               management.
             </p>
             <p>
               What are <strong>channels</strong>? Hold on a second, we will explain
-              you that clearly by example in a while.
+              that clearly by example in a while.
             </p>
           </article>
         </section>
@@ -68,9 +68,9 @@
             </p>
             <pre><code>http://webrocket.io:8080<b>/hello</b>/webrocket.js</code></pre>
             <p>
-              In this case WebRocket will conneect to <code>/hello</code> vhost.
-              Script will automatically set proper configuration and initialize client
-              instance. The configured instance will be assigned to <strong><code>$wr</code></strong>
+              In this case WebRocket will connect to the <code>/hello</code> vhost.
+              The script will automatically set the proper configurations and initialize the client
+              instance. The configured instance will be assigned to the <strong><code>$wr</code></strong>
               global variable.
             </p>
           </article>
@@ -80,21 +80,21 @@
           <article data-src="joining:9-12">
             <h2>Joining a channel</h2>
             <p>
-              So, what's the <strong>channel</strong>? Imagine it as a chat room,
-              where everyone can send something, that everyone else will immediately
-              see. That's the simplest explanation how WebRocket channels works.
+              So, what's a <strong>channel</strong>? Imagine it as a chat room,
+              where everyone can send something, and everyone else will immediately
+              see it. That's the simplest explanation of how WebRocket channels works.
             </p>
             <p>
-              To start working with channel you have to <strong>join it</strong>. You can do so with
-              <strong><code>$wr.join()</code></strong> function which takes name of the channel
+              To start working with a channel you have to <strong>join it</strong>. You can do so with
+              <strong><code>$wr.join()</code></strong>, a function which takes the name of the channel
               as a parameter, just like in the code on your right. You can also bind to events like
               <code>subscribed</code> and <code>unsubscribed</code>, to perform appropriate actions
               in time.
             </p>
             <p>
               Due to security reasons, <strong>you can't join a channel which doesn't
-              exist</strong>. Unlike the similar projects, WebRocket doesn't allow to
-              open channels on the fly. Further, you will find information how to manage
+              exist</strong>. Unlike similar projects, WebRocket doesn't allow you to
+              open channels on the fly. Further ahead, you will find information on how to manage
               channels.
             </p>
           </article>
@@ -105,16 +105,16 @@
             <h2>Listening on sources</h2>
             <p>
               One more term that WebRocket introduces is <strong>source</strong>. At a
-              glance it looks just like hipsterish name for <strong>event</strong> with
-              over-complicated way to handle them. In fact there's bigger idea behind
+              glance it looks just like a hipsterish name for <strong>event</strong> with
+              an over-complicated way to handle them. In fact there's a bigger idea behind
               it and plenty of reasons why it is clearly isolated. Further reading
               will explain you everything.
             </p>
             <p>
               For now let's focus only on listening for data. To do so we have to
-              connect to source with channe's <strong><code>source()</code></strong> method,
-              and then set our listener to <strong><code>received</code></strong> event.
-              Received data will appear as simple <code>Object</code>.
+              connect to a source with the channel's <strong><code>source()</code></strong> method,
+              and then set our listener to the <strong><code>received</code></strong> event.
+              Received data will appear as a simple <code>Object</code>.
             </p>
           </article>
         </section>
@@ -124,22 +124,22 @@
             <h2>Pushing data to source</h2>
             <p>
               WebRocket brings full, <strong>bi-directional communication</strong>, thus you
-              are able to send any object to the server. Depending on channel and sources nature
-              the message may be passed to your backend app, may be broadcasted directly
-              to all the subscribers or can be forwared to another channel.
+              are able to send any object to the server. Depending on the channels and sources'
+              nature, the message may be passed to your backend app, broadcasted directly
+              to all the subscribers or be forwared to another channel.
             </p>
             <p>
-              Let's start from the simples use case - <strong>direct broadcasting</strong>
+              Let's start from the simplest use case - <strong>direct broadcasting</strong>
               to all the subscribers. Use source's <strong><code>push()</code></strong>
-              method to write data to source.
+              method to write data to the source.
             </p>
             <p>
-              We've added simple button to code on the right. By clicking it, greeting message
-              will be sent to <code>greetings</code> source.
+              We've added a simple button to the code on the right. By clicking it, a greeting
+              message will be sent to the <code>greetings</code> source.
             </p>
           </article>
         </section>
-        
+
         <section>
           <article data-src="tyingup:20-30">
             <h2>Tying everything up!</h2>
@@ -515,7 +515,7 @@
       var greetingsSrc = earthChan.source('greetings');
       greetingsSrc.on('received', function(data) {
         var newItem = $('<li></li>');
-        newItem.text('Hello from' + data.name);
+        newItem.text('Hello from ' + data.name);
         $('#greetings').append(newItem);
       });
 
@@ -772,7 +772,7 @@ end
     <footer role="contentinfo">
       <div id="copyright">
         Copyright &copy; 2012 by <a href="http://nu7hat.ch/">nu7</a> and
-        folks at <a href="http://cuboxlabs.com">Cubox</a>. All right reserved.
+        folks at <a href="http://cuboxlabs.com">Cubox</a>. All rights reserved.
       </div>
     </footer>
     
