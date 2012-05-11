@@ -177,3 +177,12 @@ code {
    color: #027378;
    padding: 2px;
 }
+[role='contentinfo'] {
+   position: absolute;
+   bottom: 1em;
+   left: 3em;
+}
+[role='contentinfo'] #copyright {
+   font-size: .8em;
+   color: #027378;
+}
