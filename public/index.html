@@ -102,40 +102,45 @@
 
         <section>
           <article data-src="listening:11-14">
-            <h2>Listening on sources</h2>
+            <h2>Listening on events</h2>
             <p>
-              One more term that WebRocket introduces is <strong>source</strong>. At a
-              glance it looks just like hipsterish name for <strong>event</strong> with
-              over-complicated way to handle them. In fact there's bigger idea behind
-              it and plenty of reasons why it is clearly isolated. Further reading
-              will explain you everything.
+              One more term that WebRocket introduces is <strong>event</strong>.
+              Coming back to chat related explanation - you can imagine event as
+              a single message sent in the room. But our events have kind of superpowers.
+              JavaScript objects can be attached to them, so you can pass any kind
+              of data around the channel.
             </p>
             <p>
               For now let's focus only on listening for data. To do so we have to
-              connect to source with channe's <strong><code>source()</code></strong> method,
+              connect to event with channe's <strong><code>event()</code></strong> method,
               and then set our listener to <strong><code>received</code></strong> event.
               Received data will appear as simple <code>Object</code>.
+            </p>
+            <p>
+              Why you have to <em>connect</em> to the event this way? Reason is simple:
+              <strong>don't repeat yourself</strong>! Further reading will show you that this approach
+              will save you a lot of unnecessary repetitions.
             </p>
           </article>
         </section>
 
         <section>
-          <article data-src="pushing:20">
-            <h2>Pushing data to source</h2>
+          <article data-src="triggering:20">
+            <h2>Triggering events</h2>
             <p>
               WebRocket brings full, <strong>bi-directional communication</strong>, thus you
-              are able to send any object to the server. Depending on channel and sources nature
+              are able to send any object to the server. Depending on channel and events nature
               the message may be passed to your backend app, may be broadcasted directly
               to all the subscribers or can be forwared to another channel.
             </p>
             <p>
               Let's start from the simples use case - <strong>direct broadcasting</strong>
-              to all the subscribers. Use source's <strong><code>push()</code></strong>
-              method to write data to source.
+              to all the subscribers. Use event's <strong><code>trigger()</code></strong>
+              method to write data to event.
             </p>
             <p>
               We've added simple button to code on the right. By clicking it, greeting message
-              will be sent to <code>greetings</code> source.
+              will be sent to <code>greetings</code> event.
             </p>
           </article>
         </section>
@@ -144,7 +149,7 @@
           <article data-src="tyingup:20-30">
             <h2>Tying everything up!</h2>
             <p>
-              Let's tie pushing and receiving up together now. We added two things here: a
+              Let's tie triggering and receiving up together now. We added two things here: a
               text field where you can put your name and list of greetings sent by the others.
               If you click our <code>Say hello</code> button, then greetings with your name will
               fly over the WebRocket and display for <strong>all the connected users</strong>,
@@ -153,7 +158,7 @@
             <p>
               What you can see on the right is mostly all you want to use in your frontend
               code. But that's only small piece of WebRocket's power. Let's move forward
-              to see how you can modulate behaviour of the sources by using
+              to see how you can modulate behaviour of the events by using
               <strong>custom backends</strong>.
             </p>
           </article>
@@ -165,12 +170,12 @@
             <p>
               What the hell, another weird term? Well, yeah - <strong>backends</strong> (or we use to
               call them <strong>kosmonauts</strong>) are handlers which can be implemented in the
-              backend application and hook into behaviour of sources.
+              backend application and hook into behaviour of events.
             </p>
             <p>
-              Take a look at this simple example in Ruby. We can simply add storage to the source -
-              data pushed to the <code>greetings</code> source when coming through this hook and will
-              be stored in Redis list and passed forward to all the subscribers. Note, that passing
+              Take a look at this simple example in Ruby. We can add simple storage in here -
+              data attached to the <code>greetings</code> event will pass through to the hook and will
+              be stored in Redis list. Then passed forward to all the subscribers. Note, that passing
               message through is optional.
             </p>
             <p>
@@ -196,8 +201,8 @@
             </p>
             <p>
               Now you can see that <strong><code>Kosmonaut::Application#bind</code></strong> method
-              is used to connect our backend with the source. The source name has format
-              <code>channel/source</code> and can be declared as <code>Regexp</code> too. 
+              is used to connect our backend with the event. The event name has format
+              <code>channel/event</code> and can be declared as <code>Regexp</code> too. 
             </p>
           </article>
         </section>
@@ -212,7 +217,7 @@
               can be used.
             </p>
             <p>
-              Second, bindings for sources within the same channel can be grouped,
+              Second, bindings for events within the same channel can be grouped,
               just like on the example, using <strong><code>Kosmonaut::Application#within</code></strong>
               method.
             </p>
@@ -240,11 +245,11 @@
             <p>
               Backend allows also for easy <strong>replying to incoming messages</strong>.
               You can compose brand new message and send it in reply to handled one,
-              to whatever source you want.
+              to whatever event you want.
             </p>
             <p>
               In the example on your right, <strong><code>Kosmonaut::Message#reply</code></strong>
-              method is used to send thank you message on <code>thanks</code> source,
+              method is used to send thank you message on <code>thanks</code> event,
               <strong>on the same channel the message came from</strong>. As you can see,
               <code>Hash</code> data can be passed through there. Note, that reply will be
               send <strong>directly</strong> to the client who the original message, not
@@ -268,7 +273,7 @@
               one.
             </p>
             <p>
-              To push data to the private channel you <strong>have to be authenticated</strong>.
+              To trigger event in the private channel you <strong>have to be authenticated</strong>.
               Detailed information on authentication mechanism is described in the next step.
             </p>
           </article>
@@ -278,22 +283,22 @@
           <article data-src="auth:8-12">
             <h2>Authentication</h2>
             <p>
-              To get push access to private channel you have to implement an authentication resource.
+              To get write access to private channel you have to implement an authentication reevent.
               Private channels are authenticated with <strong>Single Access Token (SAT)</strong>
-              provided by default resource from your app: <code>GET /webrocket/auth.json</code>.
+              provided by default reevent from your app: <code>GET /webrocket/auth.json</code>.
               This is how to implement such one with Sinatra in Ruby. 
             </p>
             <p>
               But first thing, what's the 
               <strong><code>Kosmonaut::Client</code></strong> class? It's a backend client which can
-              manage channels (create or delete them on the fly), push data to sources or
+              manage channels (create or delete them on the fly), trigger events or
               request single access tokens - which interests us the most at the moment.
             </p>
             <p>
               The <strong><code>single_access_token</code></strong> method
               requests SAT for specified <strong>user</strong> and <strong>permissions</strong>.
               User ID can be <strong>any unique identifier from your system</strong>,
-              and permission is simple regular expression - in this case we give user push
+              and permission is simple regular expression - in this case we give user write
               access to all the channels prefixed with <code>priv-earth</code> or one called exactly
               <code>priv-qunos</code>.
             </p>
@@ -317,17 +322,17 @@
         </section>
 
         <section>
-          <article data-src="backend-pushing:10">
-            <h2>Pushing from backend</h2>
+          <article data-src="backend-triggering:10">
+            <h2>Triggering from backend</h2>
             <p>
               Last thing you can do with <strong><code>Kosmonaut::Client</code></strong> is
-              <strong>pushing data</strong> to sources. Let's say that we want to be able to
-              send greetings over the public API, via HTTP. We will use <strong><code>Kosmonaut::Client#push</code></strong>
-              method to send data over the channel, to specified source.
+              <strong>triggering</strong> events with attached data. Let's say that we want to be able to
+              send greetings over the public API, via HTTP. We will use <strong><code>Kosmonaut::Client#trigger</code></strong>
+              method to send data over the channel, to specified event.
             </p>
             <p>
               In this example, the <code>earth/greetings</code> param means that we're sending
-              data over the <code>earth</code> channel, to <code>greetings</code> source. Of course
+              data over the <code>earth</code> channel, to <code>greetings</code> event. Of course
               we're sending the data as <code>Hash</code>.
             </p>
           </article>
@@ -455,8 +460,8 @@
       
       var earthChan = $wr.join('earth');
 
-      var greetingsSrc = earthChan.source('greetings');
-      greetingsSrc.on('received', function(data) {
+      var greetingsEvent = earthChan.event('greetings');
+      greetingsEvent.on('received', function(data) {
         // do something with the data...
       });
       
@@ -464,7 +469,7 @@
   </body>
 </html></textarea>
 
-<textarea id="src-pushing" data-mode="text/html">
+<textarea id="src-triggering" data-mode="text/html">
 <html>
   <head>
     <title>Hello Universe!</title>
@@ -478,13 +483,13 @@
       
       var earthChan = $wr.join('earth');
 
-      var greetingsSrc = earthChan.source('greetings');
-      greetingsSrc.on('received', function(data) {
+      var greetingsEvent = earthChan.event('greetings');
+      greetingsEvent.on('received', function(data) {
         // do something with the data...
       });
 
       $('#say_hello').live('click', function() {
-        greetingsSrc.push({text: 'Hello from earth!'});
+        greetingsEvent.trigger({text: 'Hello from earth!'});
         return false;
       });
       
@@ -512,15 +517,15 @@
       
       var earthChan = $wr.join('earth');
 
-      var greetingsSrc = earthChan.source('greetings');
-      greetingsSrc.on('received', function(data) {
+      var greetingsEvent = earthChan.event('greetings');
+      greetingsEvent.on('received', function(data) {
         var newItem = $('<li></li>');
         newItem.text('Hello from' + data.name);
         $('#greetings').append(newItem);
       });
 
       $('#say_hello').live('click', function() {
-        greetingsSrc.push({name: $('#name').val()});
+        greetingsEvent.trigger({name: $('#name').val()});
         return false;
       });
       
@@ -645,7 +650,7 @@ post '/planets' do
 end
 </textarea>
 
-<textarea id="src-backend-pushing" data-mode="ruby">
+<textarea id="src-backend-triggering" data-mode="ruby">
 require 'sinatra'
 require 'kosmonaut'
 
@@ -655,7 +660,7 @@ $kosmonaut = Kosmonaut::Client.new('http://wr:token@webrocket.io:8080/hello')
 
 post '/greetings' do
   @greeting = Greeting.create(params[:greeting])
-  $kosmonaut.push('earth/greetings', @greeting.to_hash)
+  $kosmonaut.trigger('earth/greetings', @greeting.to_hash)
   redirect '/'
 end
 </textarea>
