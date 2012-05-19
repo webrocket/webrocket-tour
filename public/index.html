@@ -342,7 +342,7 @@
         </section>
 
         <section>
-          <article data-src="presence:9-11">
+          <article data-src="presence:11-13">
             <h2>Presence tracking</h2>
             <p>
               Last feature which must be mentioned here is <strong>presence tracking</strong>.
@@ -358,7 +358,7 @@
         </section>
 
         <section>
-          <article data-src="presence-events:17-26">
+          <article data-src="presence-events:19-28">
             <h2>Presence tracking events</h2>
             <p>
               There are two kinds of presence tracking events available:
@@ -378,7 +378,7 @@
         </section>
 
         <section>
-          <article data-src="deferred-join:28-30">
+          <article data-src="deferred-join:30-32">
             <h2>Deferred joining</h2>
             <p>
               Very last trick you should know is <strong>deferred joining the channels</strong>. You
@@ -677,7 +677,9 @@ end
   </head>
   <body>
     <script>
-      
+
+      $wr.authenticate();
+
       var earthChan = $wr.join('presence-earth', {
         name: "Marty McFly",
       });
@@ -699,6 +701,8 @@ end
     </ul>
     
     <script>
+
+      $wr.authenticate();
       
       var earthChan = $wr.join('presence-earth', {
         name: '<%= @current_user.name %>';
@@ -731,7 +735,9 @@ end
     </ul>
     
     <script>
-      
+
+      $wr.authenticate();
+
       var earthChan = $wr.channel('presence-earth');
 
       earthChan.on('online', function(info) {
