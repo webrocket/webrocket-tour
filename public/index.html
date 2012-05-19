@@ -263,7 +263,7 @@
         </section>
 
         <section>
-          <article data-src="private:9">
+          <article data-src="private:9-10">
             <h2>Private channels</h2>
             <p>
               Let's leave backends now and dig deeper into frontend features. This system
@@ -273,8 +273,11 @@
               one.
             </p>
             <p>
-              To trigger an event in the private channel you <strong>have to be authenticated</strong>.
-              Detailed information on the authentication mechanism is described in the next step.
+              To trigger event in the private channel you <strong>have to be authenticated</strong>.
+              In the example we're requiring authentication by calling <strong><code>authenticate()</code></strong>
+              function. This function may accept extra parameters which will be passed
+              to authentication resource. Detailed information on resources for
+              authentication mechanism is described in the next step.
             </p>
           </article>
         </section>
@@ -283,7 +286,7 @@
           <article data-src="auth:8-12">
             <h2>Authentication</h2>
             <p>
-              To get write access to a private channel you have to implement an authentication reevent.
+              To get write access to a private channel you have to implement an authentication event.
               Private channels are authenticated with <strong>Single Access Token (SAT)</strong>
               provided by a default reevent from your app: <code>GET /webrocket/auth.json</code>.
               This is how to implement such one with Sinatra in Ruby. 
@@ -613,7 +616,8 @@ end
   </head>
   <body>
     <script>
-      
+
+      $wr.authenticate();
       var earthChan = $wr.join('priv-earth');
 
     </script>
